@@ -10,6 +10,8 @@ import { error } from "console";
 import Model from "./Model";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
+import toast from "react-hot-toast";
+import Button from "../Button";
 const RegisterModel = () => {
   const registerModel = useRegisterModel();
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +34,7 @@ const RegisterModel = () => {
         registerModel.onClose();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Somthing Went Wrong .");
       })
       .finally(() => {
         setIsLoading(false);
@@ -67,6 +69,43 @@ const RegisterModel = () => {
       />
     </div>
   );
+
+  const footerContent = (
+    <div className="flex flex-col gap-4 mt-3">
+      <hr />
+      <Button
+        outline
+        label="Continue With Google"
+        icon={FcGoogle}
+        onClick={() => {}}
+      />
+      <Button
+        outline
+        label="Continue With Github"
+        icon={AiFillGithub}
+        onClick={() => {}}
+      />
+      <div
+        className="
+          text-neutral-500
+          text-center
+          mt-4
+          font-light
+         "
+      >
+        <div className="justify-center flex flex-row items-center gap-2">
+          Already have an account?
+        </div>
+        <div
+          onClick={registerModel.onClose}
+          className="text-neutral-800 cursor-pointer hover:underline"
+        >
+          Log in
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <Model
       disabled={isLoading}
@@ -76,6 +115,7 @@ const RegisterModel = () => {
       onClose={registerModel.onClose}
       onSumit={handleSubmit(onSubmit)}
       body={bodyContent}
+      footer={footerContent}
     />
   );
 };

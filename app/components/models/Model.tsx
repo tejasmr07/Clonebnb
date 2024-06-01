@@ -173,6 +173,7 @@ const Model: React.FC<ModelProps> = ({
                     onClick={handleSubmit}
                   />
                 </div>
+                {footer}
               </div>
             </div>
           </div>
