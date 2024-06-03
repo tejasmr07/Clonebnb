@@ -1,18 +1,21 @@
 "use client";
 
+import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModel from "@/app/hooks/useRegisterModel";
+import useLoginModel from "@/app/hooks/useLoginModel";
 import Model from "./Model";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
-import axios from "axios";
-const RegisterModel = () => {
+
+const LoginModel = () => {
   const registerModel = useRegisterModel();
+  const loginModel = useLoginModel();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -121,4 +124,4 @@ const RegisterModel = () => {
   );
 };
 
-export default RegisterModel;
+export default LoginModel;
