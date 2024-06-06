@@ -6,7 +6,7 @@ import Button from "../Button";
 interface ModelProps {
   isOpen?: boolean;
   onClose: () => void;
-  onSumit: () => void;
+  onSubmit: () => void;
   title?: string;
   body?: React.ReactElement;
   footer?: React.ReactElement;
@@ -18,7 +18,7 @@ interface ModelProps {
 const Model: React.FC<ModelProps> = ({
   isOpen,
   onClose,
-  onSumit,
+  onSubmit,
   title,
   body,
   footer,
@@ -47,8 +47,8 @@ const Model: React.FC<ModelProps> = ({
     if (disabled) {
       return;
     }
-    onSumit();
-  }, [disabled, onSumit]);
+    onSubmit();
+  }, [disabled, onSubmit]);
 
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) {

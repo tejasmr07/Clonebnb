@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -12,8 +13,10 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
+import { useRouter } from "next/navigation";
 
 const LoginModel = () => {
+  const router = useRouter();
   const registerModel = useRegisterModel();
   const loginModel = useLoginModel();
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +26,6 @@ const LoginModel = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -31,32 +33,29 @@ const LoginModel = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        registerModel.onClose();
-      })
-      .catch((error) => {
-        toast.error("Somthing Went Wrong .");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast.success("Logged in ");
+        router.refresh();
+        loginModel.onClose();
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtite="Create an account!" />
+      <Heading title="Welcome back" subtite="Login to your account" />
       <Input
         id="email"
         label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="name"
-        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -113,11 +112,11 @@ const LoginModel = () => {
   return (
     <Model
       disabled={isLoading}
-      isOpen={registerModel.isOpen}
-      title="Register"
+      isOpen={loginModel.isOpen}
+      title="Login"
       actionLabel="Continue"
-      onClose={registerModel.onClose}
-      onSubmit={handleSubmit(onSubmit)}
+      onClose={loginModel.onClose}
+      onSumit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
     />
