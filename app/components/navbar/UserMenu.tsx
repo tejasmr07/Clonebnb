@@ -6,10 +6,11 @@ import React, { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModel from "@/app/hooks/useRegisterModel";
 import useLoginModel from "@/app/hooks/useLoginModel";
-import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
@@ -29,7 +30,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             hidden
             md:block
             text-sm
-            font-semihold
+            font-semibold
             py-3
             px-4
             rounded-full
@@ -80,21 +81,20 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         "
         >
           <div className="flex flex-col cursor-pointer">
-            currentUser ?(
-               <>
-              <MenuItem onClick={loginModel.onOpen} 
-                label="Login" />
-              <MenuItem 
-                onClick={registerModel.onOpen} 
-                label="Sign up" />
-            </>
-            ):(
-            <>
-              <MenuItem onClick={loginModel.onOpen}
-               label="Login" />
-              <MenuItem onClick={registerModel.onOpen} 
-              label="Sign up" />
-            </>
+            {currentUser ? (
+              <>
+                <MenuItem onClick={() => {}} label="My trips" />
+                <MenuItem onClick={() => {}} label="My favorites" />
+                <MenuItem onClick={() => {}} label="My reservation" />
+                <MenuItem onClick={() => {}} label="Airbnb my home" />
+                <hr />
+                <MenuItem onClick={() => signOut()} label="Logout" />
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={loginModel.onOpen} label="Login" />
+                <MenuItem onClick={registerModel.onOpen} label="Sign up" />
+              </>
             )}
           </div>
         </div>

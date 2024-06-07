@@ -27,12 +27,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        {/* <ClinetOnly> */}
-        <ToasterProvider />
-        <LoginModel />
-        <RegisterModel />
-        <Navbar currentUser={currentUser} />
-        {/* </ClinetOnly> */}
+        <ClinetOnly>
+          <ToasterProvider />
+          <LoginModel />
+          <RegisterModel />
+          <Navbar currentUser={currentUser} />
+        </ClinetOnly>
         {children}
       </body>
     </html>

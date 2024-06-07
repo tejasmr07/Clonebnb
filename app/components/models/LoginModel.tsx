@@ -116,7 +116,7 @@ const LoginModel = () => {
       title="Login"
       actionLabel="Continue"
       onClose={loginModel.onClose}
-      onSumit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
     />
