@@ -6,11 +6,10 @@ import React, { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModel from "@/app/hooks/useRegisterModel";
 import useLoginModel from "@/app/hooks/useLoginModel";
-import { signOut } from "next-auth/react";
-import { SafeUser } from "@/app/types";
+import { User } from "@prisma/client";
 
 interface UserMenuProps {
-  currentUser?: SafeUser | null;
+  currentUser?: User | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
@@ -88,7 +87,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My reservation" />
                 <MenuItem onClick={() => {}} label="Airbnb my home" />
                 <hr />
-                <MenuItem onClick={() => signOut()} label="Logout" />
+                <MenuItem onClick={() => {}} label="Logout" />
               </>
             ) : (
               <>

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { Children, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-interface ClinetOnlyProps {
+interface ClientOnlyProps {
   children: React.ReactNode;
 }
-const ClinetOnly: React.FC<ClinetOnlyProps> = (children) => {
+const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const ClinetOnly: React.FC<ClinetOnlyProps> = (children) => {
   if (!hasMounted) {
     return null;
   }
-  return <>{Children}</>;
+  return <>{children}</>;
 };
 
-export default ClinetOnly;
+export default ClientOnly;
