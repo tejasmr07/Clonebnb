@@ -1,7 +1,7 @@
 "use client";
 
 import { AiOutlineMenu } from "react-icons/ai";
-import Avtar from "../Avtar";
+import Avatar from "../Avatar";
 import React, { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModel from "@/app/hooks/useRegisterModel";
@@ -61,7 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avtar />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>

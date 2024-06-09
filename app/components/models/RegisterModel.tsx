@@ -11,6 +11,7 @@ import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 const RegisterModel = () => {
   const registerModel = useRegisterModel();
   const [isLoading, setIsLoading] = useState(false);
@@ -78,13 +79,13 @@ const RegisterModel = () => {
         outline
         label="Continue With Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue With Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div
         className="

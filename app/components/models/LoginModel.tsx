@@ -86,7 +86,7 @@ const LoginModel = () => {
         outline
         label="Continue With Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div
         className="
