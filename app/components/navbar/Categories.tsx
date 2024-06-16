@@ -17,6 +17,7 @@ import CategoryBox from "../CategoryBox";
 import { usePathname, useSearchParams } from "next/navigation";
 import { FaSkiing } from "react-icons/fa";
 import { BsSnow } from "react-icons/bs";
+import { IoDiamond } from "react-icons/io5";
 
 export const categories = [
   {
@@ -88,6 +89,11 @@ export const categories = [
     label: "Barns",
     icon: GiBarn,
     description: "This property is in the barn",
+  },
+  {
+    label: "Lux",
+    icon: IoDiamond,
+    description: "This property is Luxurious",
   },
 ];
 
