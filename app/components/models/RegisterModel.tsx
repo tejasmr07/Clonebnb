@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModel from "@/app/hooks/useRegisterModel";
+import useLoginModel from "@/app/hooks/useLoginModel";
 import Model from "./Model";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
@@ -12,8 +13,10 @@ import toast from "react-hot-toast";
 import Button from "../Button";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+
 const RegisterModel = () => {
   const registerModel = useRegisterModel();
+  const loginModel = useLoginModel();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -41,6 +44,11 @@ const RegisterModel = () => {
         setIsLoading(false);
       });
   };
+  const toggle = useCallback(() => {
+    registerModel.onClose();
+    loginModel.onOpen();
+  }, [loginModel, registerModel]);
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome to Airbnb" subtite="Create an account!" />
@@ -98,7 +106,7 @@ const RegisterModel = () => {
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Already have an account?</div>
           <div
-            onClick={registerModel.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline"
           >
             Log in
