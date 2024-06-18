@@ -8,8 +8,7 @@ import Model from "./Model";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
-import { Field, FieldValue, FieldValues, useForm } from "react-hook-form";
-import { title } from "process";
+import { FieldValues, useForm } from "react-hook-form";
 
 enum STEPS {
   CATEGORY = 0,
@@ -50,9 +49,9 @@ const RentModel = () => {
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
-      shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
+      shouldValidate: true,
     });
   };
 
@@ -64,12 +63,12 @@ const RentModel = () => {
     setStep((value) => value + 1);
   };
 
-  const actionlabel = useMemo(() => {
+  const actionLabel = useMemo(() => {
     if (step == STEPS.PRICE) {
       return "Create";
     }
     return "Next";
-  }, []);
+  }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
     if (step == STEPS.CATEGORY) {
@@ -113,7 +112,7 @@ const RentModel = () => {
       isOpen={rentModel.isOpen}
       onClose={rentModel.onClose}
       onSubmit={rentModel.onClose}
-      actionLabel={actionlabel}
+      actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
       title="Clonebnb Your Home!"
