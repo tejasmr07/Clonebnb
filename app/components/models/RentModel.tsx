@@ -9,6 +9,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../inputs/CountrySelect";
 
 enum STEPS {
   CATEGORY = 0,
@@ -22,7 +23,7 @@ enum STEPS {
 const RentModel = () => {
   const rentModel = useRentModel();
 
-  const [step, setStep] = useState(STEPS.CATEGORY);
+  const [step, setstep] = useState(STEPS.CATEGORY);
 
   const {
     register,
@@ -49,24 +50,25 @@ const RentModel = () => {
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
+      shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
-      shouldValidate: true,
     });
   };
 
   const onBack = () => {
-    setStep((value) => value - 1);
+    setstep((value) => value - 1);
   };
 
   const onNext = () => {
-    setStep((value) => value + 1);
+    setstep((value) => value + 1);
   };
 
   const actionLabel = useMemo(() => {
     if (step == STEPS.PRICE) {
       return "Create";
     }
+
     return "Next";
   }, [step]);
 
@@ -74,23 +76,24 @@ const RentModel = () => {
     if (step == STEPS.CATEGORY) {
       return undefined;
     }
+
     return "Back";
   }, [step]);
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which of these describes your place ?"
-        subtite="Pick a categroy"
+        title="Which of these best describe your place"
+        subtite="Pick a category"
       />
       <div
         className="
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            gap-3
-            max-h-[50vh]
-            overflow-y-auto
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          gap-3
+          max-h-[50vh]
+          overflow-y-auto
         "
       >
         {categories.map((item) => (
@@ -107,18 +110,29 @@ const RentModel = () => {
     </div>
   );
 
+  if (step == STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located ?"
+          subtite="Help guests find you !"
+        />
+        <CountrySelect />
+      </div>
+    );
+  }
+
   return (
     <Model
       isOpen={rentModel.isOpen}
       onClose={rentModel.onClose}
-      onSubmit={rentModel.onClose}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
-      title="Clonebnb Your Home!"
+      title="Clonebnb your Home"
       body={bodyContent}
     />
   );
 };
-
 export default RentModel;
