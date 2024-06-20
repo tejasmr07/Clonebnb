@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "../../hooks/useCountries";
+import useCountries from "@/app/hooks/useCountries";
 import React from "react";
 import Select from "react-select";
 
@@ -32,10 +32,25 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
           <div className="flex flex-row items-center gap-3">
             <div>{option.flag}</div>
             <div>
+              {option.label},
               <span className="text-neutral-500 ml-1">{option.region}</span>
             </div>
           </div>
         )}
+        classNames={{
+          control: () => "p-3 border-2",
+          input: () => "test-lg",
+          option: () => "test-lg",
+        }}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 6,
+          colors: {
+            ...theme.colors,
+            primary: "black",
+            primary25: "#ffe4e6",
+          },
+        })}
       />
     </div>
   );
