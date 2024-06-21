@@ -8,11 +8,15 @@ import Model from "./Model";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUploads from "../inputs/ImageUploads";
+import Input from "../inputs/Input";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 enum STEPS {
   CATEGORY = 0,
@@ -24,9 +28,11 @@ enum STEPS {
 }
 
 const RentModel = () => {
+  const router = useRouter;
   const rentModel = useRentModel();
 
   const [step, setstep] = useState(STEPS.CATEGORY);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -54,6 +60,7 @@ const RentModel = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
+  const imageSrc = watch("imageSrc");
 
   const Map = useMemo(
     () =>
@@ -79,6 +86,26 @@ const RentModel = () => {
     setstep((value) => value + 1);
   };
 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (step == STEPS.PRICE) {
+      return onNext;
+    }
+    setIsLoading(true);
+
+    axios.post("/api/listings", data).then(() => {
+      toast.success("Listing Created!");
+      router.refresh;
+      reset;
+      setstep(STEPS.CATEGORY);
+      rentModel.onClose;
+    });
+    // .catch(() => {
+    //   toast.error("Somthing went wrong.")
+    // }).finally(() => {
+    //   setIsLoading(false);
+    // })
+  };
+
   const actionLabel = useMemo(() => {
     if (step == STEPS.PRICE) {
       return "Create";
@@ -99,7 +126,7 @@ const RentModel = () => {
     <div className="flex flex-col gap-8">
       <Heading
         title="Which of these best describe your place"
-        subtite="Pick a category"
+        subtitle="Pick a category"
       />
       <div
         className="
@@ -180,7 +207,60 @@ const RentModel = () => {
           title="Add a photo your place"
           subtitle="Show guests what your place looks like"
         />
-        <ImageUploads />
+        <ImageUploads
+          value={imageSrc}
+          onChange={(value) => setCustomValue("imageSrc", value)}
+        />
+      </div>
+    );
+  }
+
+  if (step == STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How would youe describe your place "
+          subtitle="Short and sweet works Best!"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+      </div>
+    );
+  }
+
+  if (step == STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Now, set your price"
+          subtitle="How much do you charge per night"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
       </div>
     );
   }
@@ -199,3 +279,6 @@ const RentModel = () => {
   );
 };
 export default RentModel;
+function setIsLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
