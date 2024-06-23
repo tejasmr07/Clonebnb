@@ -15,7 +15,7 @@ import Counter from "../inputs/Counter";
 import ImageUploads from "../inputs/ImageUploads";
 import Input from "../inputs/Input";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 enum STEPS {
@@ -92,18 +92,21 @@ const RentModel = () => {
     }
     setIsLoading(true);
 
-    axios.post("/api/listings", data).then(() => {
-      toast.success("Listing Created!");
-      router.refresh();
-      reset();
-      setstep(STEPS.CATEGORY);
-      rentModel.onClose();
-    });
-    // .catch(() => {
-    //   toast.error("Somthing went wrong.")
-    // }).finally(() => {
-    //   setIsLoading(false);
-    // })
+    axios
+      .post("/api/listings", data)
+      .then(() => {
+        toast.success("Listing Created!");
+        router.refresh();
+        reset();
+        setstep(STEPS.CATEGORY);
+        rentModel.onClose();
+      })
+      .catch(() => {
+        toast.error("Somthing went wrong.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const actionLabel = useMemo(() => {
