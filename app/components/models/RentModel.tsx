@@ -28,7 +28,7 @@ enum STEPS {
 }
 
 const RentModel = () => {
-  const router = useRouter;
+  const router = useRouter();
   const rentModel = useRentModel();
 
   const [step, setstep] = useState(STEPS.CATEGORY);
@@ -87,17 +87,17 @@ const RentModel = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step == STEPS.PRICE) {
-      return onNext;
+    if (step != STEPS.PRICE) {
+      return onNext();
     }
     setIsLoading(true);
 
     axios.post("/api/listings", data).then(() => {
       toast.success("Listing Created!");
-      router.refresh;
-      reset;
+      router.refresh();
+      reset();
       setstep(STEPS.CATEGORY);
-      rentModel.onClose;
+      rentModel.onClose();
     });
     // .catch(() => {
     //   toast.error("Somthing went wrong.")
@@ -269,7 +269,7 @@ const RentModel = () => {
     <Model
       isOpen={rentModel.isOpen}
       onClose={rentModel.onClose}
-      onSubmit={onNext}
+      onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step == STEPS.CATEGORY ? undefined : onBack}
