@@ -20,10 +20,11 @@ const ListingPage = async ({ params }: { params: Iparams }) => {
     );
   }
 
-  return;
-  <ClientOnly>
-    <ListingClient listing={listing} currentUser={currentUser} />
-  </ClientOnly>;
+  return (
+    <ClientOnly>
+      <ListingClient listing={listing} currentUser={currentUser} />
+    </ClientOnly>
+  );
 };
 
 export default ListingPage;
