@@ -19,10 +19,23 @@ const ReservationPage = async () => {
     authorId: currentUser.id,
   });
   if (reservations.length == 0) {
-    <ClientOnly>
-      <ReservationClient reservation={reservations} currentUser={currentUser} />
-    </ClientOnly>;
+    return (
+      <ClientOnly>
+        <EmptyState
+          title="No reservations found"
+          subtitle="Looks like you have no reservations on your property"
+        />
+      </ClientOnly>
+    );
   }
+  return (
+    <ClientOnly>
+      <ReservationClient
+        reservations={reservations}
+        currentUser={currentUser}
+      />
+    </ClientOnly>
+  );
 };
 
 export default ReservationPage;
