@@ -1,5 +1,4 @@
 import prisma from "@/app/libs/prismadb";
-import { useId } from "react";
 
 interface IParams {
   listingId?: string;

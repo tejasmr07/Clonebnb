@@ -8,7 +8,7 @@ import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Reservation } from "@prisma/client";
 
-import { SafeUser, safeLisitings } from "@/app/types";
+import { SafeUser, safeLisitings, safeReservations } from "@/app/types";
 import { categories } from "@/app/components/navbar/Categories";
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
@@ -23,7 +23,7 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  reservations?: Reservation[];
+  reservations?: safeReservations[];
   listing: safeLisitings & {
     user: SafeUser;
   };
@@ -72,8 +72,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .then(() => {
         toast.success("Listing reserved!");
         setDateRange(initialDateRange);
-        // Redirect to /trips
-        router.refresh();
+
+        router.push("/trips");
       })
       .catch(() => {
         toast.error("Somthing went wrong");
