@@ -10,6 +10,7 @@ import RentModel from "./components/models/RentModel";
 
 import ToasterProvider from "./providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
+import SearchModel from "./components/models/SearchModel";
 
 export const metadata = {
   title: "Clonebnb",
@@ -32,6 +33,7 @@ export default async function RootLayout({
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider />
+          <SearchModel />
           <RentModel />
           <LoginModel />
           <RegisterModel />
