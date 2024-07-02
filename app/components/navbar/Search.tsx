@@ -35,7 +35,7 @@ const Search = () => {
         diff = 1;
       }
 
-      return `${diff} Days`;
+      return `₹{diff} Days`;
     }
     return "Any Week";
   }, [startDate, endDate]);
