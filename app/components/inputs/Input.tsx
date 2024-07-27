@@ -1,7 +1,7 @@
 "use clients";
 
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import { BiDollar } from "react-icons/bi";
+import { BiDollar, BiRupee } from "react-icons/bi";
 
 interface InputProps {
   id: string;
@@ -26,7 +26,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="w-full relative">
       {formatPrice && (
-        <BiDollar
+        <BiRupee
           size={24}
           className="
             text-neutral-700
@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
         peer
         w-full
         p-4
-        pt-6
+        pt-5
         font-light
         bg-white
         border-2

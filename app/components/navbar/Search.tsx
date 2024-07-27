@@ -50,6 +50,7 @@ const Search = () => {
     <div
       onClick={searchModel.onOpen}
       className="
+        flex
         border-[1px]
         w-full
         md:w-auto

@@ -90,7 +90,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         shadow-md
         w-[40vw]
         md:w-3/4
-        bd-white
+        bg-white
         overflow-hidden
         right-0
         top-12
